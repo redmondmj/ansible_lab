@@ -1,0 +1,9 @@
+local:
+    hosts:
+        172.16.147.1:
+            ansible_user: LocalUsername
+            ansible_password: Password
+            ansible_connection: winrm
+            ansible_winrm_scheme: http
+            ansible_port: 5895
+            ansible_winrm_transport: basic
