@@ -51,3 +51,37 @@ Host winhost
 ### Add Hosts to Ansible Inventory
 
 See example: inventory.ini
+
+
+### NGINX Demo
+`curl -L https://github.com/do-community/html_demo_site/archive/refs/heads/main.zip -o html_demo.zip`
+
+`sudo apt install unzip`
+
+`unzip html_demo.zip`
+
+`ls -la html_demo_site-main`
+
+`mkdir files`
+
+`nano files/nginx.conf.j2`
+
+```
+server {
+  listen 80;
+
+  root {{ document_root }}/{{ app_root }};
+  index index.html index.htm;
+
+  server_name {{ server_name }};
+  
+  location / {
+   default_type "text/html";
+   try_files $uri.html $uri $uri/ =404;
+  }
+}
+```
+
+`nano playbook.yml`
+
+`ansible-playbook -i inventory playbook.yml -u itstudent -K`
