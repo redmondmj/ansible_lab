@@ -1,15 +1,16 @@
 # NSCC Ansible Lab Env
-## Host Configuration
+https://redmondo.notion.site/NETW3500-Ansible-Automation-b7bb7bb062454cb0bf4f7d636c32ae4f
+## Linux Host Configuration
 
 ### WSL2 Installation
-Follow MS Dcoumentation 
+For Windows hosts Only: Follow MS Dcoumentation 
 
 ### Docker Installation
  Follow Docker Documentation
- Ensure WSL2 is Integrated
+ For Windows Hosts: Ensure WSL2 is Integrated
 
-## WSL Ansible Controller:
-Tested on Ubuntu 20.04
+## Ansible Controller:
+`sudo apt install ansible`
 ### Ansible Installation
 `sudo apt update`
 `sudo apt install ansible`

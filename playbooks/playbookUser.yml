@@ -1,0 +1,9 @@
+- name: windows user add
+  hosts: windows
+  vars:
+    usr_name: 'hacker'
+  tasks:
+    - name: Add local user
+      ansible.windows.win_user:
+        name: "{{ usr_name }}"
+        state: present
