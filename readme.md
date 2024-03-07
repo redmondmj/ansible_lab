@@ -86,7 +86,7 @@ server {
 }
 ```
 
-### Or using a playbook
+#### Or using a playbook
 Take a look at the provided playbook for this nginx demo. We can use built in modules to complete the installation and copy the configuration! This ensure a consistant, repeatable deployment with ease!
 
 `nano playbook.yml`
@@ -95,7 +95,7 @@ AND! we can accomodate various states accross multiple servers by including them
 
 `ansible-playbook -i inventory playbook.yml -u itstudent -K`
 
-### Test your web servers
+#### Test your web servers
 On your local machine you should be able to hit each server in your browser:
 i.e.
 https://localhost:8023
