@@ -55,6 +55,8 @@ See example: inventory.ini
 
 
 ### NGINX Demo
+#### Manually?
+We COULD manually complete each of the following configuration changes to set up our web server...
 `curl -L https://github.com/do-community/html_demo_site/archive/refs/heads/main.zip -o html_demo.zip`
 
 `sudo apt install unzip`
