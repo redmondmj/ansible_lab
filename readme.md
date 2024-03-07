@@ -57,6 +57,7 @@ See example: inventory.ini
 ### NGINX Demo
 #### Manually?
 We COULD manually complete each of the following configuration changes to set up our web server...
+
 `curl -L https://github.com/do-community/html_demo_site/archive/refs/heads/main.zip -o html_demo.zip`
 
 `sudo apt install unzip`
@@ -85,6 +86,16 @@ server {
 }
 ```
 
+### Or using a playbook
+Take a look at the provided playbook for this nginx demo. We can use built in modules to complete the installation and copy the configuration! This ensure a consistant, repeatable deployment with ease!
+
 `nano playbook.yml`
 
+AND! we can accomodate various states accross multiple servers by including them in our inventory
+
 `ansible-playbook -i inventory playbook.yml -u itstudent -K`
+
+### Test your web servers
+On your local machine you should be able to hit each server in your browser:
+i.e.
+https://localhost:8023
