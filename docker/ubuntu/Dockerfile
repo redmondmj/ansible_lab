@@ -1,5 +1,6 @@
 FROM ubuntu:latest
 MAINTAINER matt.redmond@nscc.ca
+# No blame accepted though
 
 ARG USERNAME=itstudent
 EXPOSE 22
