@@ -97,18 +97,25 @@ server {
 ```
 
 #### Or using a playbook (Do this!)
-Take a look at the provided playbook for this nginx demo. We can use built in modules to complete the installation and copy the configuration! This ensure a consistant, repeatable deployment with ease!
+Take a look at the provided playbook for this nginx demo. We can use built in modules to complete the installation and copy the configuration! This ensures a consistant, repeatable deployment with ease!
 
 Find the playbook file... if using this repo it should be in ansible_lab/ansible-nginx-demo/
+
 `cd ~/ansible_lab/ansible-nginx-demo`
 
 `cat playbook.yml`
 
-AND! we can accomodate various states accross multiple servers by including them in our inventory
+next take a looak at your inventory.ini
+
+`cat inventory.ini`
+
+AND! we can accomodate various states accross multiple servers by including them in our inventory and defining the desired state in our playbooks. Let's run our example playbook:
 
 `ansible-playbook -i inventory.ini playbook.yml`
 
 #### Test your web servers
 On your local machine you should be able to hit each server in your browser:
 i.e.
-https://localhost:8023
+http://localhost:1080
+http://localhost:2080
+http://localhost:3080
