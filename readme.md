@@ -93,7 +93,7 @@ Take a look at the provided playbook for this nginx demo. We can use built in mo
 
 AND! we can accomodate various states accross multiple servers by including them in our inventory
 
-`ansible-playbook -i inventory playbook.yml -u itstudent -K`
+`ansible-playbook -i inventory.ini playbook.yml`
 
 #### Test your web servers
 On your local machine you should be able to hit each server in your browser:
