@@ -9,13 +9,14 @@ For Windows hosts Only: Follow MS Dcoumentation
  Follow Docker Documentation
  For Windows Hosts: Ensure WSL2 is Integrated
 
-## Ansible Controller:
-`sudo apt install ansible`
+
 ### Ansible Installation
 `sudo apt update`
+
 `sudo apt install ansible`
 
-### Create SSH Key
+### Create SSH Key (optional)
+This repo includes a key that will be used with the client (see the dockerfile). Obvioulsy this is not secure, so if you prefer to use you own you can generate it youself and replace the prvoded key in ansible-nginx-demo/ssh:
 `ssh-keygen -f ubuntu`
 
 ### Provisioning Clients
