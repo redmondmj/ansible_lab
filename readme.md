@@ -10,7 +10,7 @@ For Windows hosts Only: Follow MS Dcoumentation
  For Windows Hosts: Ensure WSL2 is Integrated
 
 
-### Ansible Installation
+### Ansible Installation (on your Ubuntu instance)
 `sudo apt update`
 
 `sudo apt install ansible`
