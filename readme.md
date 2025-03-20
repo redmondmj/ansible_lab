@@ -1,6 +1,7 @@
 # NSCC Ansible Lab Env
 https://redmondo.notion.site/NETW3500-Ansible-Automation-b7bb7bb062454cb0bf4f7d636c32ae4f
 ## Overview
+```
 +---------------------+
 | Host Machine        |
 | (Windows/Your OS)   |
@@ -25,7 +26,7 @@ https://redmondo.notion.site/NETW3500-Ansible-Automation-b7bb7bb062454cb0bf4f7d6
 | | (Nginx)        | | (Nginx)        | | (Nginx)        | |
 | +----------------+ +----------------+ +----------------+ |
 +-------------------------------------------------+
-
+```
 ### WSL2 Installation
 For Windows hosts Only: Follow MS Dcoumentation 
 `wsl -l -v`
