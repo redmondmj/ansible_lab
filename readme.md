@@ -2,90 +2,33 @@
 https://redmondo.notion.site/NETW3500-Ansible-Automation-b7bb7bb062454cb0bf4f7d636c32ae4f
 ## Overview
 ```
-
-
- 
-
 +---------------------+
-
- 
-
 | Host Machine        |
- 
-
 | (Windows/Your OS)   |
- 
-
 +---------------------+
- 
-
           |
- 
-
           | Runs
- 
-
           v
- 
-
 +---------------------+
- 
-
 | WSL (Ubuntu)        |
- 
-
 | (Ansible Control)   |
- 
-
 +---------------------+
- 
-
           |
- 
-
           | Manages (via WSL2 Integration)
- 
-
           v
- 
-
 +---------------------+
- 
-
 | Docker Desktop      |
- 
-
 +---------------------+
- 
-
           |
- 
-
           | Runs
- 
-
           v
- 
-
 +----------------------------------------------------------+
- 
-
 | Docker Containers (Target Nodes)                         |
- 
-
 | +----------------+ +----------------+ +----------------+ |
- 
-
 | | Ubuntu-1       | | Ubuntu-2       | | Ubuntu-3       | |
- 
-
 | | (Nginx)        | | (Nginx)        | | (Nginx)        | |
- 
-
 | +----------------+ +----------------+ +----------------+ |
- 
-
-+-------------------------------------------------+
++----------------------------------------------------------+
 ```
 ### WSL2 Installation
 For Windows hosts Only: Follow MS Dcoumentation 
