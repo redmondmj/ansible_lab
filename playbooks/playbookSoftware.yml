@@ -1,9 +1,9 @@
 ---
 - hosts: windows
 
-  - name: Install PowerToys
-    win_winget:
-      name: Microsoft.PowerToys
+#  - name: Install PowerToys
+#    win_winget:
+#      name: Microsoft.PowerToys
 
   - name: Download the Apache installer
     win_get_url:
