@@ -19,7 +19,7 @@
   - name: Create a new file
     win_file:
       path: C:\output.pdf
-      state: file
+      state: touch
 
   - name: Create a new folder
     win_file:
