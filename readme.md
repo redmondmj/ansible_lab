@@ -94,7 +94,7 @@ Host winhost
         Hostname 172.16.147.1
         User    administrator
 ```
-
+To test these `ssh ansible-ubuntu-1` 
 ### Add Hosts to Ansible Inventory
 
 See example: inventory.ini
