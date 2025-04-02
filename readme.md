@@ -94,7 +94,8 @@ Host winhost
         Hostname 172.16.147.1
         User    administrator
 ```
-To test these `ssh ansible-ubuntu-1` 
+To test these run this for each: `ssh ansible-ubuntu-1`  it may complain about your permissions being too open... `sudo chmod 600 ubuntu`
+
 ### Add Hosts to Ansible Inventory
 
 See example: inventory.ini
