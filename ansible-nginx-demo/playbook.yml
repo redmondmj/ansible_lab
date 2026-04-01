@@ -5,18 +5,33 @@
     server_name: localhost
     document_root: /var/www
     app_root: html_demo_site-main
+    zip_source: html_demo.zip
+  
   tasks:
     - name: Update apt cache and install Nginx
       apt:
-        name: nginx
-        state: latest
+        name:
+          - nginx
+          - unzip
+        state: present
         update_cache: yes
 
-    - name: Copy website files to the server's document root
-      copy:
-        src: "{{ app_root }}"
+    - name: Create document root
+      file:
+        path: "{{ document_root }}"
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+    - name: Extract website files to the document root
+      unarchive:
+        src: "{{ zip_source }}"
         dest: "{{ document_root }}"
-        mode: preserve
+        remote_src: no
+        owner: www-data
+        group: www-data
+        mode: '0755'
 
     - name: Apply Nginx template
       template:
@@ -24,7 +39,7 @@
         dest: /etc/nginx/sites-available/default
       notify: Restart Nginx
 
-    - name: Enable new site
+    - name: Ensure symbolic link exists for Nginx site
       file:
         src: /etc/nginx/sites-available/default
         dest: /etc/nginx/sites-enabled/default

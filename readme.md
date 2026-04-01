@@ -1,158 +1,68 @@
 # NSCC Ansible Lab Env
 https://redmondo.notion.site/NETW3500-Ansible-Automation-b7bb7bb062454cb0bf4f7d636c32ae4f
+
 ## Overview
-```
-+---------------------+
-| Host Machine        |
-| (Windows/Your OS)   |
-+---------------------+
-          |
-          | Runs
-          v
-+---------------------+
-| WSL (Ubuntu)        |
-| (Ansible Control)   |
-+---------------------+
-          |
-          | Manages (via WSL2 Integration)
-          v
-+---------------------+
-| Docker Desktop      |
-+---------------------+
-          |
-          | Runs
-          v
-+----------------------------------------------------------+
-| Docker Containers (Target Nodes)                         |
-| +----------------+ +----------------+ +----------------+ |
-| | Ubuntu-1       | | Ubuntu-2       | | Ubuntu-3       | |
-| | (Nginx)        | | (Nginx)        | | (Nginx)        | |
-| +----------------+ +----------------+ +----------------+ |
-+----------------------------------------------------------+
-```
-### WSL2 Installation
-For Windows hosts Only: Follow MS Dcoumentation 
-`wsl -l -v`
+This lab provides a containerized environment to learn Ansible. You will use your host machine (Windows/Mac/Linux) to run three Ubuntu containers as managed nodes, and your WSL2 or Linux environment as the **Ansible Control Node**.
 
-`wsl --set-version Ubuntu 2`
+---
 
+## Setup Instructions
 
-### Docker Installation
- Follow Docker Documentation or
+### 1. Prerequisites
+- **Docker Desktop:** Ensure it is running and WSL2 integration is enabled.
+- **Ansible (Control Node):** Install Ansible inside your **WSL (Ubuntu)** terminal:
+  ```bash
+  sudo apt update && sudo apt install ansible -y
+  ```
 
-`winget install Docker.DockerDesktop`
- 
- For Windows Hosts: Ensure WSL2 is Integrated
+### 2. Clone the Repository (CRITICAL)
+To avoid Windows/Linux permission issues (like "Permissions 0777 are too open"), **you must clone this repository directly into your WSL home directory**, NOT your Windows C: drive.
 
-
-### Ansible Installation (on your Ubuntu WSL2 instance)
-`sudo apt update`
-
-`sudo apt install ansible`
-
-### Create SSH Key (optional)
-This repo includes a key that will be used with the client (see the dockerfile). Obvioulsy this is not secure, so if you prefer to use you own you can generate it youself and replace the prvoded key in ansible-nginx-demo/ssh:
-`ssh-keygen -f ubuntu`
-
-### Provisioning Clients
-Copy/Create the provided Dockerfile and run the following command in the same directoy to create your image:
-`docker build -t ansible-lab-ubuntu .`
-
-### docker build , build, build
-Create a client instance:
-`docker run --name ansible-ubuntu-1 -d -p 1022:22 -p 1080:80 ansible-lab-ubuntu`
-And another!
-`docker run --name ansible-ubuntu-2 -d -p 2022:22 -p 2080:80 ansible-lab-ubuntu`
-And another!
-`docker run --name ansible-ubuntu-3 -d -p 3022:22 -p 3080:80 ansible-lab-ubuntu`
-
-### Add Clients to SSH Hosts
-(if neeed, make the .ssh directory)
-`cd ~ && mkdir .ssh`
-`sudo nano ~/.ssh/config`
-
-``` 
-Host ansible-ubuntu-1
-        HostName localhost
-        User itstudent
-        Port 1022
-        IdentityFile ~/ansible_lab/docker/ssh/ubuntu
-
-Host ansible-ubuntu-2
-        HostName localhost
-        User itstudent
-        Port 2022
-        IdentityFile ~/ansible_lab/docker/ssh/ubuntu
-
-Host ansible-ubuntu-3
-        HostName localhost
-        User itstudent
-        Port 3022
-        IdentityFile ~/ansible_lab/docker/ssh/ubuntu
-
-Host winhost
-        Hostname 172.16.147.1
-        User    administrator
-```
-To test these run this for each: `ssh ansible-ubuntu-1`  it may complain about your permissions being too open... `sudo chmod 600 ubuntu`
-
-### Add Hosts to Ansible Inventory
-
-See example: inventory.ini
-
-
-### NGINX Demo
-#### Manually? (Don't do this)
-We COULD manually complete each of thefollowing configuration changes to set up our web server...
-
-`curl -L https://github.com/do-community/html_demo_site/archive/refs/heads/main.zip -o html_demo.zip`
-
-`sudo apt install unzip`
-
-`unzip html_demo.zip`
-
-`ls -la html_demo_site-main`
-
-`mkdir files`
-
-`nano files/nginx.conf.j2`
-
-```
-server {
-  listen 80;
-
-  root {{ document_root }}/{{ app_root }};
-  index index.html index.htm;
-
-  server_name {{ server_name }};
-  
-  location / {
-   default_type "text/html";
-   try_files $uri.html $uri $uri/ =404;
-  }
-}
+In your WSL terminal, run:
+```bash
+cd ~
+git clone <this-repo-url>
+cd ansible_lab
 ```
 
-#### Or using a playbook (Do this!)
-Take a look at the provided playbook for this nginx demo. We can use built in modules to complete the installation and copy the configuration! This ensures a consistant, repeatable deployment with ease!
+### 3. Spin Up Lab Environment
+From the `ansible_lab` folder in WSL:
+```bash
+docker-compose up -d
+```
 
-Find the playbook file... if using this repo it should be in ansible_lab/ansible-nginx-demo/
+### 4. Fix SSH Key Permissions
+Ansible requires strict permissions on the private key:
+```bash
+chmod 600 docker/ssh/ubuntu
+```
 
-`cd ~/ansible_lab/ansible-nginx-demo`
+### 5. Verify Connection
+Test connectivity to your nodes using the provided inventory:
+```bash
+ansible all -i inventory.ini -m ping
+```
 
-`cat playbook.yml`
+---
 
-next take a looak at your inventory.ini
+## NGINX Demo
 
-`cat inventory.ini`
+The Nginx demo automates the deployment of a static website using Ansible modules (`apt`, `unarchive`, `template`, `file`).
 
-AND! we can accomodate various states accross multiple servers by including them in our inventory and defining the desired state in our playbooks. Let's run our example playbook:
+### 1. Run the Playbook
+```bash
+ansible-playbook -i inventory.ini ansible-nginx-demo/playbook.yml
+```
 
-`ansible-playbook -i inventory.ini playbook.yml`
+### 2. Verify Deployment
+Once the playbook completes, open your browser on your host machine and visit:
+- [http://localhost:1080](http://localhost:1080)
+- [http://localhost:2080](http://localhost:2080)
+- [http://localhost:3080](http://localhost:3080)
 
-#### Test your web servers
-On your local machine you should be able to hit each server in your browser:
-i.e.
-http://localhost:1080
-http://localhost:2080
-http://localhost:3080
+---
+
+## Technical Details
+- **User:** `itstudent`
+- **SSH Key:** `./docker/ssh/ubuntu` (Pre-configured in `inventory.ini`)
+- **Sudo:** Pre-configured with NOPASSWD for `itstudent`.

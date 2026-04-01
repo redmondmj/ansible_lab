@@ -1,0 +1,40 @@
+services:
+  ansible-ubuntu-1:
+    build:
+      context: ./docker/ubuntu
+      args:
+        USERNAME: itstudent
+    container_name: ansible-ubuntu-1
+    ports:
+      - "1022:22"
+      - "1080:80"
+    networks:
+      - ansible-net
+
+  ansible-ubuntu-2:
+    build:
+      context: ./docker/ubuntu
+      args:
+        USERNAME: itstudent
+    container_name: ansible-ubuntu-2
+    ports:
+      - "2022:22"
+      - "2080:80"
+    networks:
+      - ansible-net
+
+  ansible-ubuntu-3:
+    build:
+      context: ./docker/ubuntu
+      args:
+        USERNAME: itstudent
+    container_name: ansible-ubuntu-3
+    ports:
+      - "3022:22"
+      - "3080:80"
+    networks:
+      - ansible-net
+
+networks:
+  ansible-net:
+    driver: bridge
