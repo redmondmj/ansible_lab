@@ -26,6 +26,7 @@ cd ansible_lab
 ```
 
 ### 3. Spin Up Lab Environment
+PAUSE HERE: take a look at the file docker-compose.yml. Notice that this one file describes each of our three target machine AND some key configurations for us to be able to communication/authenticate.
 From the `ansible_lab` folder in WSL:
 ```bash
 docker-compose up -d
@@ -38,6 +39,7 @@ chmod 600 docker/ssh/ubuntu
 ```
 
 ### 5. Verify Connection
+PAUSE HERE: Take a look at the inventory.ini file. This is the file that ansible uses to find our target clients. Notice there are already sections for adding other types of clients.
 Test connectivity to your nodes using the provided inventory:
 ```bash
 ansible all -i inventory.ini -m ping
@@ -50,6 +52,7 @@ ansible all -i inventory.ini -m ping
 The Nginx demo automates the deployment of a static website using Ansible modules (`apt`, `unarchive`, `template`, `file`).
 
 ### 1. Run the Playbook
+PAUSE HERE: Your playbooks define your "Desired State". Ansible will compare each client to the "Desired State" and determine what work needs to be done. Look at the example playbook, notice the update, nginx install, file copy, server config... etc. All defins in simple YAML. 
 ```bash
 ansible-playbook -i inventory.ini ansible-nginx-demo/playbook.yml
 ```
